@@ -61,6 +61,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     while (current != NULL) {
         if (is_equal(tree, current->pair->key, key)) 
         {
+            current->pair->value = value;
             free(newNode->pair);
             free(newNode); 
             return; 
