@@ -86,11 +86,43 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     }
 }
 
-
-
-
 void removeNode(TreeMap * tree, TreeNode* node) {
+// Caso sin Hijos
+    if (node->left == NULL && node->right == NULL) {
+        if (node == node->parent->left) {
+            // El nodo es un hijo izquierdo
+            node->parent->left = NULL;
+        } else {
+            // El nodo es un hijo derecho
+            node->parent->right = NULL;
+        }
+        free(node->pair); // Liberar memoria del par
+        free(node); // Liberar memoria del nodo
+    }
+// Caso 1 Hijo
+    else if (node->left == NULL || node->right == NULL)
+    {
+        TreeNode * child = (node->left != NULL) ? node->left : node->right;
+        if (node == node->parent->left) 
+            // El nodo es un hijo izquierdo
+            node->parent->left = child;
+        else 
+            // El nodo es un hijo derecho
+            node->parent->right = child;
 
+        child->parent = node->parent;
+        free(node->pair); // Liberar memoria del par
+        free(node); // Liberar memoria del nodo
+    }
+// Caso 2 Hijos
+    else {
+        // Encontrar el sucesor (el mínimo del subárbol derecho)
+        TreeNode * successor = minimum(node->right); 
+        node->pair->key = successor->pair->key; // Copiar la clave del sucesor al nodo actual
+        // Copiar el valor del sucesor al nodo actual
+        node->pair->value = successor->pair->value;
+        removeNode(tree, successor); // Eliminar el sucesor recursivamente
+    }
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
@@ -119,5 +151,34 @@ Pair * firstTreeMap(TreeMap * tree) {
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
-    return NULL;
+    if (tree == NULL || tree->current == NULL) {
+        return NULL; // No se puede avanzar si el árbol está vacío o current es NULL
+    }
+
+    TreeNode * current = tree->current;
+
+    // Caso 1: Si el nodo tiene un hijo derecho, el siguiente nodo es el mínimo del subárbol derecho
+    if (current->right != NULL) {
+        current = minimum(current->right);
+    } 
+    else 
+    {
+    // Caso 2: Si el nodo no tiene hijo derecho, subir por el árbol hasta encontrar un padre cuyo hijo izquierdo sea el nodo actual
+        TreeNode * parent = current->parent;
+        while (parent != NULL && current == parent->right) {
+            current = parent;
+            parent = parent->parent;
+        }
+        current = parent;
+    }
+
+    // Actualizar el puntero current del árbol
+    tree->current = current;
+
+    // Retornar el par asociado al nodo encontrado
+    if (current != NULL) {
+        return current->pair;
+    } else {
+        return NULL; // Llegamos al final del árbol
+    }
 }
