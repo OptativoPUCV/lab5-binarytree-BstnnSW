@@ -176,3 +176,43 @@ Sat 11 May 2024 09:13:52 PM UTC:
  tests:  29|0
 total_score: 70/70
 2446de4
+Sat 11 May 2024 09:19:01 PM UTC: 
+ treemap.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `search_test1':
+test.c:(.text+0x4c6): undefined reference to `searchTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `search_test2':
+test.c:(.text+0x566): undefined reference to `searchTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `search_test3':
+test.c:(.text+0x617): undefined reference to `searchTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `search_test4':
+test.c:(.text+0x6e3): undefined reference to `searchTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `erase_test1':
+test.c:(.text+0xa1a): undefined reference to `eraseTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `erase_test2':
+test.c:(.text+0xaaa): undefined reference to `eraseTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `erase_test3':
+test.c:(.text+0xb5a): undefined reference to `eraseTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `first_test1':
+test.c:(.text+0xbe5): undefined reference to `firstTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `first_test2':
+test.c:(.text+0xc98): undefined reference to `firstTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `next_test1':
+test.c:(.text+0xd50): undefined reference to `nextTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `next_test2':
+test.c:(.text+0xdd3): undefined reference to `nextTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: test.c:(.text+0xe10): undefined reference to `nextTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: test.c:(.text+0xe48): undefined reference to `nextTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `next_test3':
+test.c:(.text+0xef4): undefined reference to `nextTreeMap'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `ub_test1':
+test.c:(.text+0xf63): undefined reference to `upperBound'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `ub_test2':
+test.c:(.text+0x1043): undefined reference to `upperBound'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `ub_test3':
+test.c:(.text+0x1143): undefined reference to `upperBound'
+/nix/store/039g378vc3pc3dvi9dzdlrd0i4q93qwf-binutils-2.39/bin/ld: /tmp/ccUE8Vkt.o: in function `ub_test4':
+test.c:(.text+0x1243): undefined reference to `upperBound'
+collect2: error: ld returned 1 exit status
+Compilation failed
+43ca3d4
