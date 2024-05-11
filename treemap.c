@@ -37,13 +37,13 @@ TreeNode * createTreeNode(void* key, void * value) {
 }
 
 TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
-    // Reserva de memoria para el mapa
+    
     TreeMap * map = (TreeMap *)malloc(sizeof(TreeMap));
     if (!map) {
-        return NULL; // Error: no se pudo reservar memoria
+        return NULL; 
     }
 
-    // Inicialización de variables
+    
     map->root = NULL;
     map->current = NULL;
     map->lower_than = lower_than;
@@ -61,9 +61,9 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     while (current != NULL) {
         if (is_equal(tree, current->pair->key, key)) 
         {
-            free(newNode->pair); // Liberar memoria del par del nuevo nodo
-            free(newNode); // Liberar memoria del nuevo nodo
-            return; // La clave ya existe, no se puede insertar duplicados
+            free(newNode->pair); 
+            free(newNode); 
+            return; 
         }
         parent = current;
 
@@ -74,7 +74,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
         }
     }
 
-    // Enlazar el nuevo nodo al árbol
+    
     if (tree->lower_than(newNode->pair->key, parent->pair->key)) {
         parent->left = newNode;
     } else {
@@ -82,7 +82,7 @@ void insertTreeMap(TreeMap * tree, void* key, void * value) {
     }
     newNode->parent = parent;
 
-    // Actualizar el current para que apunte al nuevo nodo insertado
+    
     tree->current = newNode;
 }
 
@@ -94,7 +94,7 @@ TreeNode * minimum(TreeNode * x){
 }
 
 
-/* void removeNode(TreeMap * tree, TreeNode* node) {
+void removeNode(TreeMap * tree, TreeNode* node) {
 // Caso sin Hijos
     if (node->left == NULL && node->right == NULL) {
         if (node == node->parent->left) {

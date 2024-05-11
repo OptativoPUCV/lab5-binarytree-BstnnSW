@@ -254,3 +254,39 @@ test.c:(.text+0x1243): undefined reference to `upperBound'
 collect2: error: ld returned 1 exit status
 Compilation failed
 39dc889
+Sat 11 May 2024 09:20:10 PM UTC: 
+ treemap.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
+In file included from test.c:4:
+treemap.c:233:4: error: expected identifier or ‘(’ before ‘/’ token
+  233 | } */
+      |    ^
+test.c: In function ‘creaPalabra’:
+test.c:47:17: error: implicit declaration of function ‘_strdup’; did you mean ‘strdup’? [-Werror=implicit-function-declaration]
+   47 |     new->word = _strdup(word);
+      |                 ^~~~~~~
+      |                 strdup
+test.c:47:15: error: assignment to ‘char *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+   47 |     new->word = _strdup(word);
+      |               ^
+test.c: In function ‘insert_test1’:
+test.c:174:35: error: passing argument 2 of ‘creaPalabra’ makes pointer from integer without a cast [-Werror=int-conversion]
+  174 |     Palabra* p = creaPalabra(1273,_strdup("repetido"));
+      |                                   ^~~~~~~~~~~~~~~~~~~
+      |                                   |
+      |                                   int
+test.c:44:36: note: expected ‘char *’ but argument is of type ‘int’
+   44 | Palabra* creaPalabra(int id, char* word){
+      |                              ~~~~~~^~~~
+test.c: In function ‘insert_test2’:
+test.c:190:34: error: passing argument 2 of ‘creaPalabra’ makes pointer from integer without a cast [-Werror=int-conversion]
+  190 |     Palabra* p = creaPalabra(900,_strdup("maicol"));
+      |                                  ^~~~~~~~~~~~~~~~~
+      |                                  |
+      |                                  int
+test.c:44:36: note: expected ‘char *’ but argument is of type ‘int’
+   44 | Palabra* creaPalabra(int id, char* word){
+      |                              ~~~~~~^~~~
+cc1: all warnings being treated as errors
+Compilation failed
+14e6298
