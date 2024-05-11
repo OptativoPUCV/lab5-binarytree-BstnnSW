@@ -36,55 +36,63 @@ TreeNode * createTreeNode(void* key, void * value) {
     return new;
 }
 
-
 TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
+    // Reserva de memoria para el mapa
     TreeMap * map = (TreeMap *)malloc(sizeof(TreeMap));
     if (!map) {
-        return NULL;
+        return NULL; // Error: no se pudo reservar memoria
     }
 
+    // Inicialización de variables
     map->root = NULL;
     map->current = NULL;
     map->lower_than = lower_than;
 
     return map;
 }
-    
+
+
 void insertTreeMap(TreeMap * tree, void* key, void * value) {
     TreeNode * newNode = createTreeNode(key, value);
-
-    if (tree->root == NULL) {
-        tree->root = newNode;
-        return;
-    }
 
     TreeNode * current = tree->root;
     TreeNode * parent = NULL;
 
     while (current != NULL) {
-        if (is_equal(tree, current->pair->key, key)) {
-            current->pair->value = value;
-            free(newNode->pair); 
-            free(newNode); 
-            return;
+        if (is_equal(tree, current->pair->key, key)) 
+        {
+            free(newNode->pair); // Liberar memoria del par del nuevo nodo
+            free(newNode); // Liberar memoria del nuevo nodo
+            return; // La clave ya existe, no se puede insertar duplicados
         }
         parent = current;
 
         if (tree->lower_than(newNode->pair->key, current->pair->key)) {
-            if (current->left == NULL) {
-                current->left = newNode;
-                return;
-            }
             current = current->left;
         } else {
-            if (current->left == NULL) {
-                current->left = newNode;
-                return;
-            }
             current = current->right;
         }
     }
+
+    // Enlazar el nuevo nodo al árbol
+    if (tree->lower_than(newNode->pair->key, parent->pair->key)) {
+        parent->left = newNode;
+    } else {
+        parent->right = newNode;
+    }
+    newNode->parent = parent;
+
+    // Actualizar el current para que apunte al nuevo nodo insertado
+    tree->current = newNode;
 }
+
+TreeNode * minimum(TreeNode * x){
+    while (x->left != NULL) {
+        x = x->left;
+    }
+    return x;
+}
+
 
 void removeNode(TreeMap * tree, TreeNode* node) {
 // Caso sin Hijos
@@ -134,20 +142,61 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 }
 
-
-
-
 Pair * searchTreeMap(TreeMap * tree, void* key) {
+    TreeNode * current = tree->root;
+
+    while (current != NULL) {
+        if (is_equal(tree, current->pair->key, key)) {
+            tree->current = current;
+            return current->pair;
+        } else if (tree->lower_than(key, current->pair->key)) {
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
     return NULL;
 }
 
 
 Pair * upperBound(TreeMap * tree, void* key) {
+    TreeNode * current = tree->root;
+    TreeNode * ub_node = NULL;
+
+    while (current != NULL) {
+        if (is_equal(tree, current->pair->key, key)) {
+            // Se encontró una clave igual a key, se retorna el par asociado
+            return current->pair;
+        } else if (tree->lower_than(current->pair->key, key)) {
+            // Clave del nodo actual es menor que key, se avanza hacia la derecha
+            current = current->right;
+        } else {
+            // Clave del nodo actual es mayor o igual que key, se actualiza ub_node
+            ub_node = current;
+            current = current->left;
+        }
+    }
+
+    // Si no se encontró una clave igual a key, se retorna el par asociado al ub_node encontrado
+    if (ub_node != NULL) {
+        return ub_node->pair;
+    }
+
+    // Si no se encontró ninguna clave mayor o igual a key, se retorna NULL
     return NULL;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
-    return NULL;
+    // Encontrar el nodo con la clave mínima (el primer par del mapa)
+    TreeNode * minNode = minimum(tree->root);
+
+    if (minNode != NULL) {
+        tree->current = minNode; // Actualizar el puntero current del árbol
+        return minNode->pair;
+    }
+
+    return NULL; // El árbol está vacío
 }
 
 Pair * nextTreeMap(TreeMap * tree) {
